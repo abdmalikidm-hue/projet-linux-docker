@@ -1,0 +1,10 @@
+version: '3'
+services:
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
