@@ -1,15 +1,44 @@
 #!/bin/bash
+# =============================================
+# Script de Monitoring Système (Projet LIU-2026)
+# Auteur : TonNom
+# Description : Génère un rapport matériel complet
+# =============================================
 
-echo "===== Rapport système - $(date) ====="
-echo ""
+# Définir le fichier de log
+LOG_FILE="system_report.log"
 
-echo "📦 Utilisation disque :"
-df -h /
-echo ""
+# Fonction pour écrire à la fois sur l'écran et dans le log
+ecrire() {
+    echo "$1" | tee -a "$LOG_FILE"
+}
 
-echo "🧠 Mémoire :"
-free -h
-echo ""
+# Séparateur visuel
+ecrire "============================================="
+ecrire "RAPPORT SYSTÈME - $(date '+%d/%m/%Y %H:%M:%S')"
+ecrire "============================================="
 
-echo "⚙️ Processus les plus gourmands en CPU :"
-ps -eo pid,comm,%cpu --sort=-%cpu | head -6
+# 1. Informations CPU
+ecrire ""
+ecrire ">> CHARGE CPU :"
+uptime | tee -a "$LOG_FILE"
+
+# 2. Informations Mémoire
+ecrire ""
+ecrire ">> MÉMOIRE VIVE (RAM) :"
+free -h | tee -a "$LOG_FILE"
+
+# 3. Informations Disque
+ecrire ""
+ecrire ">> ESPACE DISQUE :"
+df -h / | tee -a "$LOG_FILE"
+
+# 4. Informations Réseau
+ecrire ""
+ecrire ">> ADRESSE IP :"
+hostname -I | tee -a "$LOG_FILE"
+
+ecrire ""
+ecrire "============================================="
+ecrire "FIN DU RAPPORT"
+ecrire "============================================="
