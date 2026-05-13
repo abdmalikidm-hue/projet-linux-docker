@@ -1,0 +1,53 @@
+=========================================
+SIMULATION D'ORDONNANCEMENT CPU
+Projet LIU-2026 : SRTF vs Round Robin
+=========================================
+
+=== Round Robin (Quantum = 3) ===
+T=3  : P2 s'exécute (1 restant)
+T=4  : P2 terminé
+T=7  : P4 s'exécute (2 restant)
+T=9  : P4 terminé
+T=12 : P1 s'exécute (5 restant)
+T=15 : P3 s'exécute (6 restant)
+T=18 : P1 s'exécute (2 restant)
+T=20 : P1 terminé
+T=23 : P3 s'exécute (3 restant)
+T=26 : P3 terminé
+
+--- Statistiques Round Robin ---
+PID  Arrivée  Burst  Complétion  Attente  Rotation
+P1   0        8      20          12       20
+P2   1        4      4           0        3
+P3   2        9      26          15       24
+P4   3        5      9           1        6
+Moyenne Waiting Time   : 7.00
+Moyenne Turnaround Time: 13.25
+
+=== SRTF (Shortest Remaining Time First) ===
+T=0  : P1 s'exécute (reste 8)
+T=1  : P2 s'exécute (reste 4)
+T=5  : P2 terminé
+T=5  : P1 s'exécute (reste 7)
+T=6  : P4 s'exécute (reste 5)
+T=11 : P4 terminé
+T=11 : P1 s'exécute (reste 6)
+T=17 : P1 terminé
+T=17 : P3 s'exécute (reste 9)
+T=26 : P3 terminé
+
+--- Statistiques SRTF ---
+PID  Arrivée  Burst  Complétion  Attente  Rotation
+P1   0        8      17          9        17
+P2   1        4      5           0        4
+P3   2        9      26          15       24
+P4   3        5      11          3        8
+Moyenne Waiting Time   : 6.75
+Moyenne Turnaround Time: 13.25
+
+=========================================
+CONCLUSION :
+- SRTF réduit légèrement le temps d'attente moyen.
+- Round Robin est plus simple et équitable.
+- Les résultats complets sont versionnés dans ce dépôt.
+=========================================
